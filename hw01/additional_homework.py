@@ -44,7 +44,13 @@ def compare_usage_rate_by_gu():
 
 def compare_usage_rate_by_day():
     tashu = pd.read_csv('tashu.csv', parse_dates=[1,3])
-    print(tashu[:10])
+    tashu['RENT_WEEKDAY'] = pd.DatetimeIndex(tashu['RENT_DATE']).weekday
+
+    rent_weekday = tashu.groupby('RENT_WEEKDAY').RENT_STATION.count()
+    plt.title('Compare tashu usage rate by day')
+    plt.xticks((0, 1, 2, 3, 4, 5, 6), ('Mon', 'Thu', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'))
+    rent_weekday.plot(kind='bar')
+    plt.show()
 
 if __name__ == '__main__':
     matplotlib.rc('font', family='NanumBarunGothic')
