@@ -21,14 +21,14 @@ def get_top10_station(tashu_dict, station_dict):
     station_frame = pd.DataFrame(list(station_dict))
 
     station_name = pd.Series(
-        list(station_frame['명칭']), 
-        index=list(station_frame['번호'])
+        list(station_frame['NAME']), 
+        index=list(station_frame['NUMBER'])
     )
 
     rent_station_count = tashu_frame.groupby('RENT_STATION').RENT_STATION.count()
     return_station_count = tashu_frame.groupby('RETURN_STATION').RETURN_STATION.count()
     
-    sum_station_count = rent_station_count + return_station_count
+    sum_station_count = rent_station_count.add(return_station_count, fill_value=0).astype(int)
     sum_station_count.sort_values(inplace=True, ascending=False)
     top10_station_count = sum_station_count[:10]
     top10_station_number = top10_station_count.index
@@ -38,7 +38,7 @@ def get_top10_station(tashu_dict, station_dict):
         result.append([
             station_name[top10_station_number[i]], 
             top10_station_number[i], 
-            int(top10_station_count[i])
+            top10_station_count[i]
         ])
 
     return result
@@ -64,8 +64,8 @@ def get_top10_trace(tashu_dict, station_dict):
     station_frame = pd.DataFrame(list(station_dict))
 
     station_name = pd.Series(
-        list(station_frame['명칭']), 
-        index=list(station_frame['번호'])
+        list(station_frame['NAME']), 
+        index=list(station_frame['NUMBER'])
     )
 
     tashu_frame['TRACE'] = (tashu_frame['RENT_STATION'] 
