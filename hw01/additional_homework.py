@@ -54,7 +54,7 @@ def compare_usage_rate_by_day():
     
     plt.title('Compare tashu usage rate by day')
     plt.bar(range(len(sum_weekday)), sum_weekday.values(), align='center')
-    plt.xticks(range(len(sum_weekday)), ['Mon', 'Thu', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'])
+    plt.xticks(range(len(sum_weekday)), ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
     plt.show()
 
 def compare_usage_rate_by_hour():
