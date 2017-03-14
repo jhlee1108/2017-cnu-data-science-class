@@ -24,18 +24,14 @@ def compare_usage_rate_by_gu():
         index=list(station['NUMBER'])
     )
 
-    usage_rate = dict()
+    usage_rate = {'서구': 0, '유성구': 0, '중구': 0, '대덕구':0, '동구':0}
     for i in range(1, len(sum_station_count)):
         if station_number[i] in station_gu:
             key = station_gu[station_number[i]]
             value = int(sum_station_count[i])
-        else:
-            continue
-
-        if key in usage_rate:
             usage_rate[key] = usage_rate[key] + value
         else:
-            usage_rate[key] = value
+            continue
 
     plt.title('Compare tashu usage rate by gu')
     plt.bar(range(len(usage_rate)), usage_rate.values(), align='center')
