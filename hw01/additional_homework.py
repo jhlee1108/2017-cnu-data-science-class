@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
+import datetime
 
 def compare_tashu_station_by_gu():
     station = pd.read_csv('station.csv')
@@ -12,7 +13,6 @@ def compare_tashu_station_by_gu():
 def compare_usage_rate_by_gu():
     tashu = pd.read_csv('tashu.csv')
     station = pd.read_csv('station.csv')
-
     rent_station_count = tashu.groupby('RENT_STATION').RENT_STATION.count()
     return_station_count = tashu.groupby('RETURN_STATION').RETURN_STATION.count()
     
@@ -43,15 +43,60 @@ def compare_usage_rate_by_gu():
     plt.show()
 
 def compare_usage_rate_by_day():
-    tashu = pd.read_csv('tashu.csv', parse_dates=[1,3])
-    tashu['RENT_WEEKDAY'] = pd.DatetimeIndex(tashu['RENT_DATE']).weekday
+    tashu = pd.read_csv('tashu.csv')
+    rent_date = tashu['RENT_DATE']
+    return_date = tashu['RETURN_DATE']
 
-    rent_weekday = tashu.groupby('RENT_WEEKDAY').RENT_STATION.count()
+    sum_weekday = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+    for r in rent_date:
+        weekday = datetime.datetime.strptime(str(r), '%Y%m%d%H%M%S').weekday()
+        sum_weekday[weekday] += 1
+
+    for r in return_date:
+        weekday = datetime.datetime.strptime(str(r), '%Y%m%d%H%M%S').weekday()
+        sum_weekday[weekday] += 1
+    
     plt.title('Compare tashu usage rate by day')
-    plt.xticks((0, 1, 2, 3, 4, 5, 6), ('Mon', 'Thu', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'))
-    rent_weekday.plot(kind='bar')
+    plt.bar(range(len(sum_weekday)), sum_weekday.values(), align='center')
+    plt.xticks(range(len(sum_weekday)), ['Mon', 'Thu', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'])
+    plt.show()
+
+def compare_usage_rate_by_hour():
+    tashu = pd.read_csv('tashu.csv')
+    rent_date = tashu['RENT_DATE']
+    return_date = tashu['RETURN_DATE']
+
+    sum_hour = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0,
+                8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0,
+                15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0,
+                22: 0, 23: 0
+    }
+
+    for r in rent_date:
+        hour = datetime.datetime.strptime(str(r), '%Y%m%d%H%M%S').hour
+        sum_hour[hour] += 1
+
+    for r in return_date:
+        hour = datetime.datetime.strptime(str(r), '%Y%m%d%H%M%S').hour
+        sum_hour[hour] += 1
+    
+    plt.title('Compare tashu usage rate by hour')
+    plt.bar(range(len(sum_hour)), sum_hour.values(), align='center')
+    plt.xticks(range(len(sum_hour)), sum_hour.keys())
     plt.show()
 
 if __name__ == '__main__':
     matplotlib.rc('font', family='NanumBarunGothic')
-    compare_usage_rate_by_day()
+    
+    select = int(input('1. compare_tashu_station_by_gu, 2. compare_usage_rate_by_gu, 3. compare_usage_rate_by_day, 4. compare_usage_rate_by_hour\n'))
+
+    if select is 1:
+        compare_tashu_station_by_gu()
+    elif select is 2:
+        compare_usage_rate_by_gu()
+    elif select is 3:
+        compare_usage_rate_by_day()
+    elif select is 4:
+        compare_usage_rate_by_hour()
+    else:
+        print('select 1~4')
