@@ -1,9 +1,9 @@
 import fitbit
 import json
-import ConfigParser
+import configparser
 import pandas as pd
 
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read('config.ini')
 
 CLIENT_ID = config.get('ACCOUNT', 'CLIENT_ID')
