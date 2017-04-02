@@ -6,3 +6,6 @@
 config.ini
 *.json
 *.pyc
+sokulee.tar
+*.DS_Store
+_Rhistory
