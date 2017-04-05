@@ -21,26 +21,41 @@ for n in range(1,100):
         for date in dates:
             f_sleep_path = directory_name + '/' + name + '_'\
                             + date.strftime('%Y%m%d') + '_sleep.json'
-
             try: 
                 f_sleep = open(f_sleep_path)
             except IOError as e:
                 print(str(e))
             else:
-                data_sleep = json.loads(f_sleep.read())
-
+                json_sleep = json.loads(f_sleep.read())
                 try: 
-                    time_sleep = data_sleep['sleep'][0]['minuteData']
+                    data_sleep = json_sleep['sleep']
                 except KeyError as e:
                     print(str(e))
                 except IndexError as e:
                     print(str(e))
                 else:
-                    start_sleep.append(int(time_sleep[0]['dateTime'][:2]))
-                    end_sleep.append(int(time_sleep[-1]['dateTime'][:2]))
+                    prev_time_to_wake_up = -10 # init prev_time_to_wake_up
+                    for t in data_sleep:
+                        time_to_sleep = int(t['minuteData'][0]['dateTime'][:2])
+                        time_to_wake_up = int(t['minuteData'][-1]['dateTime'][:2])
 
-        start_sleep_mean.append(sum(start_sleep)/len(start_sleep))
-        end_sleep_mean.append(sum(end_sleep)/len(end_sleep))
+                        if time_to_sleep <= 10:
+                            time_to_sleep += 24
+
+                        if time_to_sleep - prev_time_to_wake_up <= 2:
+                            end_sleep[len(end_sleep)-1] = time_to_wake_up
+                        else:
+                            start_sleep.append(time_to_sleep)
+                            end_sleep.append(time_to_wake_up)
+
+                        prev_time_to_wake_up = time_to_wake_up
+
+        mean_time_to_sleep = sum(start_sleep)/len(start_sleep)
+        mean_time_to_wake_up = sum(end_sleep)/len(end_sleep)
+        if mean_time_to_sleep >= 24:
+            mean_time_to_sleep -= 24
+        start_sleep_mean.append(mean_time_to_sleep)
+        end_sleep_mean.append(mean_time_to_wake_up)
 
 df['start'] = start_sleep_mean
 df['end'] = end_sleep_mean
