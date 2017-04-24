@@ -99,7 +99,7 @@ wordcloud(rownames(obamasotu), obamasotu, min.freq = 3,
           colors = c("lightsteelblue1", "lightsteelblue2", 
                      "lightsteelblue3", "lightsteelblue"))
 ```
-
+![simple](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw06/images/simple.png)
 ## Comparision Cloud
 
 ```{r, warning = FALSE}
@@ -109,10 +109,11 @@ comparison.cloud(tdm, random.order = FALSE,
                  colors = c("indianred3", "lightsteelblue3"), 
                  title.size = 2.5, max.words = 400)
 ```
-
+![comparision](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw06/images/comparision.png)
 ## Commonality Cloud
 
 ```{r, warning = FALSE}
 commonality.cloud(tdm, random.order = FALSE, scale = c(5, .5), 
                   colors = brewer.pal(4, "Dark2"), max.words = 400)
 ```
+![commonality](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw06/images/commonality.png)
