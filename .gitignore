@@ -12,3 +12,4 @@ config.ini
 _Rhistory
 *.zip
 *.txt
+*-checkpoint.ipynb
