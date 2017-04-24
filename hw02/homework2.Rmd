@@ -19,8 +19,6 @@ Read csv files
 ```{r}
 tashu = read.csv("tashu.csv")
 station = read.csv("station.csv")
-head(tashu)
-head(station)
 ```
 
 ### Top 10 tashu station
@@ -29,32 +27,26 @@ head(station)
 ```{r}
 rent_count = data.frame(table(tashu$RENT_STATION))
 return_count = data.frame(table(tashu$RETURN_STATION))
-head(rent_count)
-head(return_count)
 ```
 
 2. Merge rent_count, return_count group by station number
 ```{r}
 sum_count <- merge(x = rent_count, y = return_count, by = c("Var1"), all = TRUE)
-head(sum_count)
 ```
 
 3. Sum rent, return count
 ```{r}
 sum_count$Sum <- rowSums(sum_count[,c("Freq.x", "Freq.y")], na.rm = TRUE)
-head(sum_count)
 ```
 
 4. Sort descending by sum count
 ```{r}
 sum_count <- sum_count[order(-sum_count$Sum),]
-head(sum_count)
 ```
 
 5. Select top 10 station
 ```{r}
 top10_station <- sum_count[1:10,]
-top10_station
 ```
 
 6. Top 10 tashu station frequency bar graph
@@ -72,7 +64,6 @@ ggplot(data = top10_station, aes(x = Var1, y = Sum/1000, fill = Var1)) +
 1. Merge station, sum_count group by station number
 ```{r}
 station_merge <- merge(station, sum_count, by.x = c("NUMBER"), by.y = c("Var1"))
-head(station_merge)
 ```
 
 2. Get geocode(lon : 127.3845, lat : 36.35041)
@@ -97,19 +88,16 @@ ggmap(get_googlemap(center = daejon_cent, scale = 1,maptype = "roadmap",zoom = 1
 1. Count trace usage
 ```{r}
 trace_count <- data.frame(table(tashu$RENT_STATION, tashu$RETURN_STATION))
-head(trace_count)
 ```
 
 2. Sort descending by trace count
 ```{r}
 trace_count <- trace_count[order(-trace_count$Freq),]
-head(trace_count)
 ```
 
 3. Select top 20 trace
 ```{r}
 top20_trace <- trace_count[1:20,]
-top20_trace
 ```
 
 4. Top 20 tashu trace graph
@@ -131,9 +119,7 @@ for(i in 1:20) {
   freq <- top20_trace[i,3]
   top20_trace_matrix[from,to] <- freq
 }
-```
 
-```{r}
 haircolors <- head(station$NAME, 108)
 dimnames(top20_trace_matrix) <- list(have = haircolors, prefer = haircolors)
 chorddiag(top20_trace_matrix, groupnamePadding = 40, groupnameFontsize = 10)
