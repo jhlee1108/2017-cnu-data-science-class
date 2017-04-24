@@ -58,6 +58,7 @@ ggplot(data = top10_station, aes(x = Var1, y = Sum/1000, fill = Var1)) +
   ggtitle("Top 10 tashu station frequency") + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
+![top10_station](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw02/images/top10_tashu_station.png)
 
 ### Tashu frequency map
 
@@ -82,6 +83,7 @@ ggmap(get_googlemap(center = daejon_cent, scale = 1,maptype = "roadmap",zoom = 1
   ggtitle("Tashu station frequency map") + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
+![tashu_map](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw02/images/tashu_station_map.png)
 
 ### Top 20 tashu trace
 
@@ -108,6 +110,7 @@ qplot(Var1, Var2, data = top20_trace, size = Freq) +
   ggtitle("Top 20 tashu trace") + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
+![top20_trace](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw02/images/top20_tashu_trace.png)
 
 ## Top 20 tashu trace chord diagram
 ```{r}
@@ -124,3 +127,4 @@ haircolors <- head(station$NAME, 108)
 dimnames(top20_trace_matrix) <- list(have = haircolors, prefer = haircolors)
 chorddiag(top20_trace_matrix, groupnamePadding = 40, groupnameFontsize = 10)
 ```
+![trace_chorddiag](https://github.com/jhlee1108/2017-cnu-data-science-class/blob/master/hw02/images/trace_chorddiag.png)
