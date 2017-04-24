@@ -12,3 +12,4 @@ _Rhistory
 *.zip
 *.txt
 *-checkpoint.ipynb
+*.html
