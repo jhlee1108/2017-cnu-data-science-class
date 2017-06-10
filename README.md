@@ -34,3 +34,5 @@
 ### hw06
 - data set : http://stateoftheunion.onetwothree.net/texts/
 1. Create Bush and Obama word clouds
+
+### Midterm Exam
