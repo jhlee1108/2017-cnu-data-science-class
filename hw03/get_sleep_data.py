@@ -17,10 +17,10 @@ authd_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET,
                                 refresh_token=REFRESH_TOKEN)
 
 dates = pd.date_range('20170401', '20170520')
-name = 'A0100'
+
 for date in dates:
     x = datetime.datetime.strptime(date.strftime('%Y-%m-%d'), '%Y-%m-%d')
     intraday_sleep = authd_client.get_sleep(x)
-    fname = 'data/' + name + '_' + date.strftime('%Y%m%d') + '_sleep.json'
+    fname = 'data/' + date.strftime('%Y%m%d') + '_sleep.json'
     f = open(fname, 'w')
     json.dump(intraday_sleep, f)
