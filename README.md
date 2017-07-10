@@ -46,6 +46,5 @@
 2. Tashu analysis
 
 ### hw10
-1. Spark
-2. Spark examples
-3. Sokulee analysis
+1. Spark tutorial
+2. Sokulee analysis
