@@ -35,4 +35,17 @@
 - data set : http://stateoftheunion.onetwothree.net/texts/
 1. Create Bush and Obama word clouds
 
-### Midterm Exam
+### hw07
+1. Hadoop Fully-Distribution Setting
+
+### hw08
+1. Mapreduce(WordCount examples)
+
+### hw09
+1. Hive
+2. Tashu analysis
+
+### hw10
+1. Spark
+2. Spark examples
+3. Sokulee analysis
